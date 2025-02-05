@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>com.github.zehsteam.SellMyScrap</name>
+    </assembly>
+    <members>
+        <member name="T:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest">
+            <summary>
+            Scrap sell request with settings from config and flags to choose correct 
+            </summary>
+            <param name="value">Scrap value the player needs to get from current selling</param>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.#ctor(System.Int32)">
+            <summary>
+            Scrap sell request with settings from config and flags to choose correct 
+            </summary>
+            <param name="value">Scrap value the player needs to get from current selling</param>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.Value">
+            <summary>Scrap value the player needs to get from current selling</summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.OnlyAllowedScrap">
+            <summary>
+            Whether should sell algorithms include shotguns, ammo, pickles, gift boxes, etc. to <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.items"/><br></br>
+            Default: <see langword="true"/>
+            </summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.WithOvertimeBonus">
+            <summary>
+            Whether should <see cref="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.Value"/> be normalized using overtime bonus<br></br>
+            Default: <see langword="false"/>
+            </summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.OnlyUseShipInventory">
+            <summary>
+            Whether should sell algorithms use only ship inventory items as <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.items"/><br></br>
+            Default: <see langword="false"/>
+            </summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.ScrapMatchAlgorithm">
+            <summary>
+            Algorithm to find correct scrap to fulfill the value<br></br>
+            Default: <see cref="T:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.DefaultScrapMatchAlgorithm"/>
+            </summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.TargetValue">
+            <summary>
+            Scrap value the player needs to get from current selling accounting <see cref="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.WithOvertimeBonus"/>
+            </summary>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.GetScrapToSell(System.Collections.Generic.List{com.github.zehsteam.SellMyScrap.Data.ItemData})">
+            <summary>
+            Retrieves a match for <paramref name="items"/> to sell to fulfill <see cref="P:com.github.zehsteam.SellMyScrap.Data.SellCommandRequest.TargetValue"/>
+            </summary>
+            <param name="items"></param>
+            <returns></returns>
+        </member>
+        <member name="T:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm">
+            <summary>
+            Base abstract class for scrap match algorithms.
+            </summary>
+        </member>
+        <member name="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.items">
+            <summary>All items available to sell</summary>
+        </member>
+        <member name="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.targetValue">
+            <summary>Requested target value that must be fulfilled</summary>
+        </member>
+        <member name="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.prioritySet">
+            <summary>Priority scrap names <see cref="T:System.Collections.Generic.HashSet`1"/> for quick case-insensitive lookups</summary>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.FindMatch(System.Collections.Generic.List{com.github.zehsteam.SellMyScrap.Data.ItemData},System.Int32,System.String[])">
+            <summary>
+            Checks for edge cases and uses an algorithm to find a suitable combination of scrap to fulfill <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.targetValue"/>.
+            </summary>
+            <returns>Scrap list to sell from given <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.items"/> to fulfill <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.targetValue"/>.</returns>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.IsPriority(com.github.zehsteam.SellMyScrap.Data.ItemData)">
+            <summary>
+            Checks if given <paramref name="item"/> is contained inside of a <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.prioritySet"/> HashSet
+            </summary>
+            <param name="item">Scrap Item</param>
+            <returns><see langword="true"/> if <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.prioritySet"/> has <paramref name="item"/>; otherwise, <see langword="false"/></returns>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.FlagIndex">
+            <summary>
+            Flag in the terminal to activate this algorithm (ex: 'sell quota -a1', then this property should return '1'). 
+            </summary>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.RunScrapMatchAlgorithm(System.Int32)">
+            <summary>
+            Runs scrap match searching algorithm to find a suitable combination assuming that edge cases were already checked.
+            </summary>
+            <param name="totalScrapValue">Total scrap value on the ship</param>
+            <returns>Scrap list to sell from given <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.items"/> to fulfill <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.targetValue"/>.</returns>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.GetAlgorithmByFlag(System.Int32)">
+            <param name="flagIndex">Flag (ex: 'sell quota -a1' => 1)</param>
+            <returns><see cref="T:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm"/> for given <paramref name="flagIndex"/></returns>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.Default">
+            <summary>
+            Get default scrap match algorithm
+            </summary>
+        </member>
+        <member name="T:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BruteForceMatchAlgorithm">
+            <summary>
+            Brute force algorithm to find first match of scrap that equals to <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.targetValue"/>.
+            Very unstable and this algorithm's speed can vary, but usually it's fast
+            </summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BruteForceMatchAlgorithm.FlagIndex">
+            <inheritdoc/>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BruteForceMatchAlgorithm.RunScrapMatchAlgorithm(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.DefaultScrapMatchAlgorithm">
+            <summary>
+            Default OG algorithm to find the best match of scrap to sell
+            </summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.DefaultScrapMatchAlgorithm.FlagIndex">
+            <inheritdoc/>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.DefaultScrapMatchAlgorithm.RunScrapMatchAlgorithm(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.SuperFastScrapMatchAlgorithm">
+            <summary>
+            Super fast algorithm to find any match of scrap to sell that fulfills or exceeds the <see cref="F:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.BaseScrapMatchAlgorithm.targetValue"/>
+            </summary>
+        </member>
+        <member name="P:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.SuperFastScrapMatchAlgorithm.FlagIndex">
+            <inheritdoc/>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.Helpers.ScrapMatchAlgorithms.SuperFastScrapMatchAlgorithm.RunScrapMatchAlgorithm(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.MonoBehaviours.ScrapEaterBehaviour.OnAllClientsReceivedTargetScrap">
+            <summary>
+            Only gets called on the Host/Server
+            </summary>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.MonoBehaviours.ScrapEaterBehaviour.StartAnimation">
+            <summary>
+            Do your animation in here.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.MonoBehaviours.ScrapEaterBehaviour.OnAllClientsFinishedAnimation">
+            <summary>
+            Only gets called on the Host/Server
+            </summary>
+        </member>
+        <member name="M:com.github.zehsteam.SellMyScrap.ScrapEaters.ScrapEaterManager.AddScrapEater(UnityEngine.GameObject,System.Func{System.Int32})">
+            <summary>
+            Register your scrap eater.
+            </summary>
+            <param name="spawnPrefab">Your scrap eater spawn prefab.</param>
+            <param name="GetSpawnWeight">Func for getting your spawnWeight config setting value.</param>
+        </member>
+    </members>
+</doc>

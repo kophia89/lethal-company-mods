@@ -1,0 +1,10 @@
+{
+  "name": "Symbiosis",
+  "version_number": "1.0.8",
+  "website_url": "https://github.com/niceh26/Symbiosis",
+  "description": "Make items, monsters and players interact together.",
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2100",
+	"NiceHairs-NuclearLibrary-1.0.7"
+  ]
+}
